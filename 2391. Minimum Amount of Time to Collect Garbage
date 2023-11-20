@@ -1,0 +1,52 @@
+Java:
+
+class Solution {
+    public int garbageCollection(String[] garbage, int[] travel) {
+        int n = garbage.length;
+        int mEnd = -1, pEnd = -1, gEnd = 0;
+        for (int i = 0; i < n; i++) {
+            String g = garbage[i];
+            if (g.contains("M")) mEnd = i;
+            if (g.contains("P")) pEnd = i;
+            if (g.contains("G")) gEnd = i;
+        }
+        return count(garbage, travel, mEnd, 'M')
+         + count(garbage, travel, pEnd, 'P')
+         + count(garbage, travel, gEnd, 'G');
+    }
+    private int count(String[] garbage, int[] travel, int end, char type){
+        int count = 0;
+        for(int i=0; i<end; i++){
+            count += travel[i];
+        }
+        for(int i=0; i<end+1; i++){
+            count += garbage[i].chars().filter(ch -> ch == type).count();
+        }
+        return count;
+    }
+}
+
+
+----------------------------------------------------------------------------------
+
+Python:
+
+class Solution:
+    def garbageCollection(self, garbage: List[str], travel: List[int]) -> int:
+        m_end, p_end, g_end = -1, -1, -1
+        for i in range(len(garbage)):
+            g = garbage[i]
+            if "M" in g:
+                m_end = i
+            if "P" in g:
+                p_end = i
+            if "G" in g:
+                g_end = i
+        def count(garbage, travel, end, type_char):
+            count = 0
+            for i in range(end):
+                count += travel[i]
+            for i in range(end + 1):
+                count += garbage[i].count(type_char)
+            return count
+        return count(garbage, travel, m_end, 'M') + count(garbage, travel, p_end, "P") + count(garbage, travel, g_end, "G")
