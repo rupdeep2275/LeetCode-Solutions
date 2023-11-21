@@ -1,0 +1,45 @@
+Python:
+
+class Solution:
+    def countNicePairs(self, nums: List[int]) -> int:
+        freq_map = defaultdict(int)
+        mod = 1_000_000_007
+        res = 0
+        def rev(num):
+            res = 0
+            while num:
+                res = res * 10 + num % 10
+                num = num // 10
+            return res
+        for num in nums:
+            diff = num - rev(num)
+            res = (res + freq_map[diff]) % mod
+            freq_map[diff] += 1
+        return res
+
+-----------------------------------------------------------
+
+Java:
+
+class Solution {
+    public int countNicePairs(int[] nums) {
+        Map<Integer, Integer> map = new HashMap();
+        int mod = 1_000_000_007;
+        int res = 0;
+        for(int num : nums){
+            int diff = num - rev(num);
+            int freq = map.getOrDefault(diff, 0);
+            res = (res + freq) % mod;
+            map.put(diff, freq + 1);
+        }
+        return res;
+    }
+    private int rev(int num){
+        int res = 0;
+        while(num > 0){
+            res = res * 10 + num % 10;
+            num = num / 10;
+        }
+        return res;
+    }
+}
