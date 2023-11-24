@@ -1,0 +1,55 @@
+Python:
+
+class Solution:
+    def checkArithmeticSubarrays(self, nums: List[int], l: List[int], r: List[int]) -> List[bool]:
+        res = []
+        def is_AP(nums, start, end):
+            minn, maxx = float('inf'), float('-inf')
+            sett = set()
+            for i in range(start, end+1):
+                maxx = max(maxx, nums[i])
+                minn = min(minn, nums[i])
+                sett.add(nums[i])
+            if (maxx - minn) % (end - start) != 0:
+                return False
+            diff = (maxx - minn) // (end - start)
+            if diff == 0:
+                return len(sett) == 1
+            for i in range(0, end - start + 1):
+                if (minn + i*diff) not in sett:
+                    return False
+            return True
+        for i in range(0, len(l)):
+            res.append(is_AP(nums, l[i], r[i]))
+        return res
+
+----------------------------------------------------------------------------------------------------------
+
+Java:
+
+class Solution {
+    public List<Boolean> checkArithmeticSubarrays(int[] nums, int[] l, int[] r) {
+        List<Boolean> res = new ArrayList();
+        for(int i=0; i<l.length; i++){
+            res.add(isAP(nums, l[i], r[i]));
+        }
+        return res;
+    }
+    public boolean isAP(int[] nums, int start, int end){
+        if(end - start < 2) return true;
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        Set<Integer> set = new HashSet();
+        for(int i=start; i<=end; i++){
+            min = Math.min(min, nums[i]);
+            max = Math.max(max, nums[i]);
+            set.add(nums[i]);
+        }
+        if((max - min) % (end - start) != 0) return false;
+        int diff = (max - min) / (end - start);
+        if(diff == 0) return set.size() == 1;
+        for(int i=0; i<=end-start; i++){
+            if(!set.contains(min + i*diff)) return false;
+        } 
+        return true;
+    }
+}
