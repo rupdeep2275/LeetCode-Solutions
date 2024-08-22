@@ -2,11 +2,11 @@
 
 class Solution {
     public int missingNumber(int[] nums) {
-        var res = nums.length;
-        for(var i=0; i<nums.length; i++){
+        int i = 0, res = 0;
+        for(i=0; i<nums.length; i++){
             res ^= i ^ nums[i];
         }
-        return res;
+        return res ^ i;
     }
 }
 
