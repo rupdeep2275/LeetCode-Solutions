@@ -1,0 +1,22 @@
+class Solution {
+    int n;
+    Set<String> set;
+    Integer[] dp;
+    public int minExtraChar(String s, String[] dictionary) {
+        n = s.length();
+        set = new HashSet<>(Arrays.asList(dictionary));
+        dp = new Integer[n];
+        return memoSolve(s, 0);
+    }
+    int memoSolve(String s, int index){
+        if(index == n) return 0;
+        if(dp[index] != null) return dp[index];
+        var res = Integer.MAX_VALUE;
+        for(var i=index+1; i<=n; i++){
+            var count = set.contains(s.substring(index, i)) ? 0 : i - index;
+            count += memoSolve(s, i);
+            res = Math.min(count, res);
+        }
+        return dp[index] = res; 
+    }
+}
