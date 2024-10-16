@@ -11,3 +11,5 @@ class Solution {
         return res;
     }
 }
+
+//Explanation: https://leetcode.com/problems/separate-black-and-white-balls/solutions/5916795/one-pass-simple-solution-with-explanation/
