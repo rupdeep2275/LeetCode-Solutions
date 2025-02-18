@@ -22,21 +22,20 @@ class Solution:
 
 class Solution {
     public int trap(int[] height) {
-        int n = height.length, maxTillNow = 0, res = 0;
-        int[] maxL = new int[n];
-        int[] maxR = new int[n];
-        for(var i=0; i<n; i++){
-           maxL[i] = maxTillNow;
-           maxTillNow = Math.max(maxTillNow, height[i]);
+        int n = height.length, max = height[0], res = 0;
+        int[] lMax = new int[n], rMax = new int[n];
+        for(int i=1; i<n; i++){
+            lMax[i] = max;
+            max = Math.max(max, height[i]);
         }
-        maxTillNow = 0;
-        for(var i=n-1; i>=0; i--){
-            maxR[i] = maxTillNow;
-            maxTillNow = Math.max(maxTillNow, height[i]);
+        max = height[n-1];
+        for(int i=n-2; i>=0; i--){
+            rMax[i] = max;
+            max = Math.max(max, height[i]);
         }
         for(int i=1; i<n-1; i++){
-            var water = Math.min(maxL[i], maxR[i]) - height[i];
-            if(water > 0) res += water;
+            int water = Math.max(0, Math.min(lMax[i], rMax[i]) - height[i]);
+            res += water;
         }
         return res;
     }
