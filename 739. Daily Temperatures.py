@@ -18,18 +18,36 @@ class Solution:
 
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
-        int n = temperatures.length;
-        int[] res = new int[n];
-        var stack = new Stack<Integer>();
-        for(int i=n-1; i>=0; i--){
-            while(!stack.isEmpty() && temperatures[stack.peek()] <= temperatures[i]){
-                stack.pop();
-            }
-            if(!stack.isEmpty()){
-                res[i] = stack.peek() - i;
-            }
+        var n = temperatures.length;
+        var res = new int[n];
+        CustomStack stack = new CustomStack();
+        for(var i=n-1; i>=0; i--){
+            while(!stack.isEmpty() && temperatures[stack.peek()] <= temperatures[i]) stack.pop();
+            if(!stack.isEmpty()) res[i] = stack.peek() - i;
             stack.push(i);
         }
         return res;
+    }
+}
+class CustomStack{
+    List<Integer> stack;
+    int i;
+    CustomStack(){
+        stack = new ArrayList<>();
+        i = 0;
+    }
+    void push(int val){
+        stack.add(val);
+        i++;
+    }
+    void pop(){
+        stack.remove(i-1);
+        i--;
+    }
+    int peek(){
+        return stack.get(i-1);
+    }
+    boolean isEmpty(){
+        return stack.isEmpty();
     }
 }
