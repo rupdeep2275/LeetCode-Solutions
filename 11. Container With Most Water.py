@@ -17,14 +17,12 @@ class Solution:
 
 class Solution {
     public int maxArea(int[] height) {
-        int i = 0, j = height.length - 1;
-        int maxWater = 0;
+        int i = 0, j = height.length - 1, res = 0;
         while(i < j){
-            int water = Math.min(height[i], height[j]) * (j - i);
-            maxWater = Math.max(water, maxWater);
+            res = Math.max(res, Math.min(height[i], height[j]) * (j - i));
             if(height[i] < height[j]) i++;
             else j--;
         }
-        return maxWater;
+        return res;
     }
 }
