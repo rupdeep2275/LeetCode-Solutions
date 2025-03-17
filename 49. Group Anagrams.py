@@ -14,13 +14,20 @@ class Solution:
 
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        var map = new HashMap<String, List<String>>();
+        Map<String, List> map = new HashMap<>();
+        int[] freq = new int[26];
         for(String str : strs){
-            char[] chars = str.toCharArray();
-            Arrays.sort(chars);
-            String sortedStr = new String(chars);
-            map.computeIfAbsent(sortedStr, k -> new ArrayList<>()).add(str);
+            for(int i=0; i<str.length(); i++){
+                freq[str.charAt(i) - 'a']++;
+            }
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i<26; i++){
+                sb.append(freq[i]);
+                sb.append("#");
+            }
+            map.computeIfAbsent(sb.toString(), k -> new ArrayList()).add(str);
+            Arrays.fill(freq, 0);
         }
-        return new ArrayList<>(map.values());
+        return new ArrayList(map.values());
     }
 }
