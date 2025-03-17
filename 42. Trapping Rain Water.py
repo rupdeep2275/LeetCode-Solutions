@@ -22,21 +22,17 @@ class Solution:
 
 class Solution {
     public int trap(int[] height) {
-        int n = height.length, max = height[0], res = 0;
-        int[] lMax = new int[n], rMax = new int[n];
-        for(int i=1; i<n; i++){
-            lMax[i] = max;
-            max = Math.max(max, height[i]);
+        int lo = 0, hi = height.length - 1, water = 0, leftMax = 0, rightMax = 0;
+        while(lo < hi){
+            if(height[lo] < height[hi]){
+                leftMax = Math.max(leftMax, height[lo]);
+                water += leftMax - height[lo++];
+            }
+            else{
+                rightMax = Math.max(rightMax, height[hi]);
+                water += rightMax - height[hi--];
+            }
         }
-        max = height[n-1];
-        for(int i=n-2; i>=0; i--){
-            rMax[i] = max;
-            max = Math.max(max, height[i]);
-        }
-        for(int i=1; i<n-1; i++){
-            int water = Math.max(0, Math.min(lMax[i], rMax[i]) - height[i]);
-            res += water;
-        }
-        return res;
+        return water;
     }
 }
