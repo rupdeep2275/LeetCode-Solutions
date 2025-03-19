@@ -1,3 +1,18 @@
+class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        stack = []
+        for c in s:
+            if stack and c == stack[-1][0]:
+                stack[-1][1] += 1
+            else:
+                stack.append([c, 1])
+            if stack[-1][1] == k:
+                stack.pop()
+        res = []
+        for x in stack:
+            res.append(x[0] * x[1])
+        return ''.join(res)
+
 class Solution {
     public String removeDuplicates(String s, int k) {
         var stack = new Stack<Pair>();
