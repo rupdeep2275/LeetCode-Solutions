@@ -15,28 +15,20 @@ class Solution:
 
 class Solution {
     public String removeDuplicates(String s, int k) {
-        var stack = new Stack<Pair>();
+        var stack = new Stack<int[]>();
         for(int i=0; i<s.length(); i++){
             char ch = s.charAt(i);
-            if(!stack.isEmpty() && stack.peek().ch == ch){
-                stack.peek().freq++;
+            if(!stack.isEmpty() && stack.peek()[0] == ch){
+                stack.peek()[1]++;
             }
-            else stack.push(new Pair(ch, 1));
-            if(stack.peek().freq == k) stack.pop();
+            else stack.push(new int[]{ch, 1});
+            if(stack.peek()[1] == k) stack.pop();
         }
         var sb = new StringBuilder();
         while(!stack.isEmpty()){
-            while(stack.peek().freq-->0) sb.append(stack.peek().ch);
+            while(stack.peek()[1]-->0) sb.append((char)stack.peek()[0]);
             stack.pop();
         }
         return sb.reverse().toString();
-    }
-}
-class Pair{
-    char ch;
-    int freq;
-    Pair(char ch, int freq){
-        this.ch = ch;
-        this.freq = freq;
     }
 }
