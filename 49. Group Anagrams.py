@@ -2,13 +2,15 @@
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        map = {}
-        for str in strs:
-            sorted_str = ''.join(sorted(str))
-            if sorted_str not in map:
-                map[sorted_str] = []
-            map[sorted_str].append(str)
-        return list(map.values())
+        anagrams = defaultdict(list)
+        freq = [0] * 26
+        for s in strs:
+            for c in s:
+                freq[ord(c) - ord("a")] += 1
+            key = '#'.join(str(f) for f in freq)
+            anagrams[key].append(s)
+            freq = [0] * 26
+        return list(anagrams.values())
 
 #Java:
 
