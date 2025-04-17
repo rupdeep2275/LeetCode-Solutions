@@ -31,21 +31,17 @@ class Solution {
 }
 class CustomStack{
     List<Integer> stack;
-    int i;
     CustomStack(){
-        stack = new ArrayList<>();
-        i = 0;
+        stack = new LinkedList<>();
     }
     void push(int val){
         stack.add(val);
-        i++;
     }
     void pop(){
-        stack.remove(i-1);
-        i--;
+        stack.removeLast();
     }
     int peek(){
-        return stack.get(i-1);
+        return stack.getLast();
     }
     boolean isEmpty(){
         return stack.isEmpty();
