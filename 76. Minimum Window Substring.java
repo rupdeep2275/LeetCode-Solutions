@@ -1,27 +1,23 @@
 class Solution {
     public String minWindow(String s, String t) {
-        var map = new HashMap<Character, Integer>();
-        var window = new HashMap<Character, Integer>();
+        Map<Character, Integer> windowFreq = new HashMap<>();
+        Map<Character, Integer> targetFreq = new HashMap<>();
         for(char c : t.toCharArray()){
-            map.put(c, map.getOrDefault(c, 0) + 1);
+            targetFreq.put(c, targetFreq.getOrDefault(c, 0) + 1);
         }
-        int i = 0, index = -1, minLen = s.length() + 1, required = map.size(), formed = 0;
-        for(var j=0; j<s.length(); j++){
+        int i = 0, index = -1, formed = 0, target = targetFreq.size(), minLen = Integer.MAX_VALUE;
+        for(int j=0; j<s.length(); j++){
             char c = s.charAt(j);
-            window.put(c, window.getOrDefault(c, 0) + 1);
-            if(map.containsKey(c) && window.get(c).intValue() == map.get(c).intValue()){
-                formed++;
-            }
-            while(i <= j && formed == required){
-                c = s.charAt(i);
+            windowFreq.put(c, windowFreq.getOrDefault(c, 0) + 1);
+            if(targetFreq.containsKey(c) && windowFreq.get(c).intValue() == targetFreq.get(c).intValue()) formed++;
+            while(i <= j && target == formed){
                 if(minLen > j - i + 1){
                     minLen = j - i + 1;
                     index = i;
                 }
-                window.put(c, window.get(c) - 1);
-                if(map.containsKey(c) && window.get(c).intValue() < map.get(c).intValue()){
-                    formed--;
-                }
+                char toRemove = s.charAt(i);
+                windowFreq.put(toRemove, windowFreq.getOrDefault(toRemove, 0) - 1);
+                if(targetFreq.containsKey(toRemove) && windowFreq.get(toRemove).intValue() < targetFreq.get(toRemove).intValue()) formed--;
                 i++;
             }
         }
