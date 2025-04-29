@@ -15,7 +15,8 @@ class Solution:
 
 class Solution {
     public long countSubarrays(int[] nums, int k) {
-        int res = 0, count = 0, n = nums.length, max = 0, i = 0, j = 0;
+        int count = 0, n = nums.length, max = 0, i = 0, j = 0;
+        long res = 0;
         for(int num : nums) max = Math.max(max, num);
         while(j < n){
             count += nums[j] == max ? 1 : 0;
