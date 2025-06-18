@@ -16,13 +16,10 @@ class Solution:
 class Solution {
     public int[][] divideArray(int[] nums, int k) {
         Arrays.sort(nums);
-        var res = new int[nums.length/3][3];
-        int x = 0;
-        for(int i=0; i<nums.length; i+=3){
-            if(nums[i+2] - nums[i] > k){
-                return new int[0][0];
-            }
-            res[i/3] = new int[]{nums[i], nums[i+1], nums[i+2]};
+        int[][] res = new int[nums.length/3][3];
+        for(int i=2; i<nums.length; i+=3){
+            if(nums[i] - nums[i-2] > k) return new int[0][0];
+            res[i/3] = new int[]{nums[i-2], nums[i-1], nums[i]};
         }
         return res;
     }
