@@ -15,5 +15,3 @@ class Solution {
         return countWithoutCurr + countWithCurr;
     }
 }
-
-//Explanation: https://leetcode.com/problems/count-number-of-maximum-bitwise-or-subsets/solutions/5933291/easy-recursive-solution/
